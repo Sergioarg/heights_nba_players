@@ -13,14 +13,13 @@
 - [Testing](#testing)
 - [Files](#files)
 
-
-## Requirements :rotating_light:
+## Requirements
 
 In order to run this project you need to have installed **GO** installed on our computer.
 
 If you do not have it installed, you can go the following [documentation](https://golang.org/doc/install) of Golang and install it according to your operating system.
 
-## Compile & run :rocket:
+## Compile & run
 
 Clone the repositoriy inside the folder runs the following commands.
 
@@ -52,7 +51,7 @@ On Windows
 $ go run main.go
 ```
 
-## Usage :joystick:
+## Usage
 
 - Run the program
 - Introduces a numeric value after the message `Introduce Inch: number`.
@@ -66,7 +65,7 @@ Brevin Knight   Nate Robinson
 Mike Wilks      Nate Robinson
 ```
 
-## Testing :test_tube:
+## Testing
 
 You can do a quick test of the function with the command With predetermined values.
 
@@ -82,7 +81,7 @@ Input test: 1
 No matches found
 ```
 
-### Files :open_file_folder:
+### Files
 
 | File                           | Description                       |
 | ------------------------------ | --------------------------------- |
