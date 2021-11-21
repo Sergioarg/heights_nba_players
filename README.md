@@ -57,7 +57,7 @@ $ go run main.go
 - Run the program
 - Introduces a numeric value after the message `Introduce Inch: number`.
 
-### Exmaple:
+### Example:
 
 ```
 $ go run main.go
