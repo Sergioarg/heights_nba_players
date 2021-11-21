@@ -21,11 +21,12 @@ If you do not have it installed, you can go the following [documentation](https:
 
 ## Compile & run
 
-Clone the repositoriy inside the folder runs the following commands.
+Clone the repositoriy.
 
 ```
 $ git clone https://github.com/Sergioarg/heights_nba_players.git
 ```
+Inside the folder runs the following commands in your terminal.
 
 You can run the program in different ways.
 
