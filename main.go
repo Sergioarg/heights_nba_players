@@ -196,12 +196,9 @@ func getJSONValues() (*ResponseMeasure, error) {
 	}
 
 	return &response, nil
-
 }
 
-/**
- * main - Entry point
- */
+// main - Entry point
 func main() {
 
 	input := getInputUser()

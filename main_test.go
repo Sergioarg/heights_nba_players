@@ -37,8 +37,7 @@ func TestApiMinInch(t *testing.T) {
 	}
 
 	numbers := getUniqueInch(response)
-	//
-	if os.Getenv("checkLimitsInch") == "1" {
+	if os.Getenv("EXIT_STATUS") == "1" {
 		checkLimitsInch(numbers, input)
         return
     }
@@ -49,7 +48,7 @@ func TestApiMinInch(t *testing.T) {
 // TestApiMaxInch - test with the max values in inches
 func TestApiMaxInch(t *testing.T) {
 
-	input := 178
+	input := 200
 	fmt.Println("Input test:", input)
 	response, err := getJSONValues()
 
@@ -59,9 +58,7 @@ func TestApiMaxInch(t *testing.T) {
 	}
 
 	numbers := getUniqueInch(response)
-
-	// necessary conditional for testing os.Exits(1)
-	if os.Getenv("checkLimitsInch") == "1" {
+	if os.Getenv("EXIT_STATUS") == "1" {
 		checkLimitsInch(numbers, input)
         return
     }
@@ -82,8 +79,7 @@ func TestApiNegativeInch(t *testing.T) {
 	}
 
 	numbers := getUniqueInch(response)
-	// necessary conditional for testing os.Exits(1)
-	if os.Getenv("checkLimitsInch") == "1" {
+	if os.Getenv("EXIT_STATUS") == "1" {
 		checkLimitsInch(numbers, input)
         return
     }
