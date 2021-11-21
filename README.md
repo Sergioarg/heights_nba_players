@@ -7,11 +7,11 @@
 
 ## Table of Contents
 
-- [Requirements](#Requirements)
-- [Compile and run](#Compile)
-- [Usage](#Usage)
-- [Testing](#Testing)
-- [Files](#Files)
+- [Requirements](#requirements)
+- [Compile & run](#compile--run)
+- [Usage](#usage)
+- [Testing](#testing)
+- [Files](#files)
 
 
 ## Requirements :rotating_light:
@@ -20,7 +20,7 @@ In order to run this project you need to have installed **GO** installed on our 
 
 If you do not have it installed, you can go the following [documentation](https://golang.org/doc/install) of Golang and install it according to your operating system.
 
-## Compile and run :rocket:
+## Compile & run :rocket:
 
 Clone the repositoriy inside the folder runs the following commands.
 
