@@ -4,10 +4,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"sort"
 )
 
 const apiPath = "https://mach-eight.uc.r.appspot.com/"
+
+/**
+ * struct Measure - struct for order the nba players
+ * @FirstName: firs name
+ * @LastName: last name
+ * @Hin: height in inches
+ * @HMetter: height in meters
+ */
 
 type Measure struct {
 	FirstName string  `json:"first_name"`
@@ -16,39 +25,63 @@ type Measure struct {
 	HMetter   float64 `json:"h_metters,string"`
 }
 
+/**
+ * struct ResponseMeasure - struct for order the nba players
+ * @Measure: Array for storage the results of json values
+ */
 type ResponseMeasure struct {
 	Values []Measure `json:"values"`
 }
 
-func main() {
-	// get user input
+/**
+ * getInputUser - check and get the input of the user
+ * @response: structure that has the value
+ *
+ * Return: the number input of the user
+ */
+func getInputUser() int {
+
 	var inputUser int
 
 	for {
+
 		fmt.Print("Introduce Inch: ")
 		fmt.Scanf("%d", &inputUser)
+
 		if inputUser == 0 {
 			fmt.Println("Introduce valid input")
 		} else {
 			break
 		}
 	}
+	return inputUser
+}
 
-	// make http request to get json
-	response, err := getJSONValues()
+/**
+ * getUniqueInch - get the unique values of the inch
+ * @response: structure that has the value
+ *
+ * Return: numbers map[float64][]int
+ */
+func getUniqueInch(response *ResponseMeasure) map[float64][]int {
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	// fill only numbers unrepeat
 	numbers := make(map[float64][]int)
 
 	for i := 0; i < len(response.Values); i++ {
 		first := response.Values[i]
 		numbers[first.Hin] = append(numbers[first.Hin], i)
 	}
+	return numbers
+}
+
+/**
+ * checkLimitsInch - check the max and min values of the inchs
+ * @numbers: maps with the values of th inch
+ * @input: input insert for the user
+ *
+ * Return: nothing
+ */
+func checkLimitsInch(numbers map[float64][]int, input int) {
 
 	keys := make([]float64, 0, len(numbers))
 	for k := range numbers {
@@ -59,26 +92,37 @@ func main() {
 	min := keys[0]
 	max := keys[len(keys)-1]
 	max_2 := keys[len(keys)-2]
+	error_message := "No matches found"
 
-	if inputUser <= int(min+min) {
-		fmt.Println("No matches found")
-		return
-	} else if inputUser > int(max + max_2) {
-		fmt.Println("No matches found")
-		return
+	if input <= int(min+min) {
+		fmt.Println(error_message)
+		os.Exit(1)
+	} else if input > int(max+max_2) {
+		fmt.Println(error_message)
+		os.Exit(1)
 	}
+}
 
-	// find pair that have matches inch sum with input user
+/**
+ * findPairsWhitMatchSumInch - find pairs of the inch values
+ * @numbers: maps with the values of th inch
+ * @response: structure that has the value
+ * @input: input insert for the user
+ *
+ * Return: nothing
+ */
+func findPairsWhitMatchSumInch(numbers map[float64][]int, response *ResponseMeasure, input int) {
+
 	numbersValidated := make(map[float64]bool)
 	isMatch := false
 	counter := 0
+
 	for key, _ := range numbers {
 		for key2, _ := range numbers {
 			if numbersValidated[key] || numbersValidated[key2] {
 				continue
 			}
-			if key+key2 == float64(inputUser) {
-				// fmt.Println(key, " ", key2)
+			if key+key2 == float64(input) {
 				isMatch = true
 				for _, v := range numbers[key] {
 					value := response.Values[v]
@@ -106,6 +150,14 @@ func main() {
 	}
 }
 
+/**
+ * findPairsWhitMatchSumInch - find pairs of the inch values
+ * @numbers: maps with the values of th inch
+ * @response: structure that has the value
+ * @input: input insert for the user
+ *
+ * Return: the response of the call
+ */
 func GET(url string) (*http.Response, error) {
 	res, err := http.Get(url)
 
@@ -115,15 +167,24 @@ func GET(url string) (*http.Response, error) {
 	return res, nil
 }
 
+/**
+ * getJSONValues - get the json values calls from the API
+ * @numbers: maps with the values of th inch
+ * @response: structure that has the value
+ * @input: input insert for the user
+ *
+ * Return: the response
+ */
 func getJSONValues() (*ResponseMeasure, error) {
+
 	res, err := GET(apiPath)
 
 	if res == nil {
-		return nil, fmt.Errorf("Failed to connect with api")
+		return nil, fmt.Errorf("failed to connect with api")
 	}
 
 	if res.StatusCode != 200 {
-		return nil, fmt.Errorf("Failed to get json")
+		return nil, fmt.Errorf("failed to get json")
 	}
 
 	defer res.Body.Close()
@@ -131,9 +192,27 @@ func getJSONValues() (*ResponseMeasure, error) {
 
 	// convert bytes of body to responseDTO
 	if err = json.NewDecoder(res.Body).Decode(&response); err != nil {
-		return nil, fmt.Errorf("Failed to decode json")
+		return nil, fmt.Errorf("failed to decode json")
 	}
 
 	return &response, nil
 
+}
+
+/**
+ * main - Entry point
+ */
+func main() {
+
+	input := getInputUser()
+	response, err := getJSONValues()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	numbers := getUniqueInch(response)
+	checkLimitsInch(numbers, input)
+	findPairsWhitMatchSumInch(numbers, response, input)
 }
