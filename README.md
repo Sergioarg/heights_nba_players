@@ -35,21 +35,21 @@ You can run the program in different ways.
 On Linux
 
 ```
-$ go build main.go
+$ go build main.go validations.go call_api.go find_pairs.go
 $ ./main
 ```
 
 On Windows
 
 ```
-> go build main.go
+> go build main.go validations.go call_api.go find_pairs.go
 > main.exe
 ```
 
 2. Run the program.
 
 ```
-$ go run main.go
+$ go run main.go  validations.go call_api.go find_pairs.go
 ```
 
 ## Usage
