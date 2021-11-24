@@ -24,7 +24,7 @@ func TestApiInch(t *testing.T) {
 	fmt.Println("")
 }
 
-// TestApiMinInch - test with the sum of the two major values
+// TestApiMinInch - test with the sum of the two higher values
 func TestApiMinInch(t *testing.T) {
 
 	input := 1
