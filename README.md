@@ -81,11 +81,3 @@ Nate Robinson   Mike Wilks
 Input test: 1
 No matches found
 ```
-
-### Files
-
-| File                           | Description                       |
-| ------------------------------ | --------------------------------- |
-| [main.go](./main.go)           | Entry point to call the functions |
-| [main_test.go](./main_test.go) | Tests made to test the function   |
-| [go.mod](./go.mod)             | Describes the module’s properties |
