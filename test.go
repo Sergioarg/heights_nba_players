@@ -3,42 +3,60 @@ package main
 import (
 	"errors"
 	"fmt"
-	// "github.com/stretchr/testify/assert"
-	// "testing"
+	"math"
+	"sort"
 )
 
-func MustUnique(a []int, b []int) (int, error) {
+func MostUnique(a []int, b []int) (int, error) {
+	const error_msg = "input is empty"
+	const error_long = "input is so long"
+	if len(a) == 0 || len(b) == 0 {
+		return 0, errors.New(error_msg)
+	}
 
-    if len(a) == 0  || len(b) == 0 {
-        fmt.Print("input is empty")
-        return 0, errors.New("input is empty")
-    }
-    if len(a) >= 10  || len(b) >= 10 {
-        fmt.Print("input too long")
-		return 0, errors.New("input too long")
-    }
+	if len(a) > 10 || len(b) == 10 {
+		return 0, errors.New(error_long)
+	}
 
-	fmt.Print(len(a), len(b))
-	return 1, errors.New("Nice")
+	aMax := float64(uniqueMax(a))
+	bMax := float64(uniqueMax(b))
+
+	return int(math.Max(aMax, bMax)), nil
+}
+
+func uniqueMax(a []int) int {
+	m1 := make(map[int]int)
+
+	for _, elem := range a {
+		m1[elem]++
+	}
+
+	var uniq1 []int
+
+	for k, v := range m1 {
+		if v == 1 {
+			uniq1 = append(uniq1, k)
+		}
+	}
+
+	if len(uniq1) == 0 {
+		return 0
+	}
+
+	sort.Ints(uniq1)
+	return uniq1[len(uniq1)-1]
 }
 
 type Person struct {
-    Name string
-    Surname string
-    Age int
-    Hobbies []string
+	Name    string
+	Surname string
+	Age     int
+	Hobbies []string
 }
-
-func Validate(people []Person) []error {
-
-}
-
-// func Test_Example(t *testing.T) {
-//     assert.Equal(t, true, true)
-// }
 
 func main() {
-	a := []int{1, 2, 3, 4, 5}
-	b := []int{2, 3, 4, 5}
-	MustUnique(a, b)
+	a := []int{3, 8, 3, 5, 5}
+	b := []int{2, 2, 3, 3, 2, 4}
+
+	fmt.Println(MostUnique(a, b))
 }
