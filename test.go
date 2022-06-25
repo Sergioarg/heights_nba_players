@@ -47,12 +47,6 @@ func uniqueMax(a []int) int {
 	return uniq1[len(uniq1)-1]
 }
 
-type Person struct {
-	Name    string
-	Surname string
-	Age     int
-	Hobbies []string
-}
 
 func main() {
 	a := []int{3, 8, 3, 5, 5}
